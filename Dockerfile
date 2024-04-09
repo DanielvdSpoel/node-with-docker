@@ -1,17 +1,13 @@
-# Use the official Node.js image as base
-FROM node:latest
+# Use a smaller base image
+FROM node:alpine
 
-# Install Docker prerequisites
-RUN apt-get update
-RUN apt-get install -y ca-certificates curl
-RUN install -m 0755 -d /etc/apt/keyrings
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-RUN chmod a+r /etc/apt/keyrings/docker.asc
+# Install Docker prerequisites and Docker
+RUN apk add --no-cache ca-certificates curl
+RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-20.10.13.tgz | tar -xzC /usr/local/bin --strip-components=1
 
-# Add the repository to Apt sources:
-RUN echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  tee /etc/apt/sources.list.d/docker.list > /dev/null
-RUN apt-get update
-RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+# Install Docker Compose
+RUN curl -fsSL https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose \
+    && chmod +x /usr/local/bin/docker-compose
+
+# Cleanup
+RUN rm -rf /var/cache/apk/*
