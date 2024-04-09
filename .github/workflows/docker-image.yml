@@ -20,4 +20,4 @@ jobs:
         run: docker build -t danielvdspoel/node-with-docker:next .
 
       - name: Publish Docker image
-        run: docker push danielvdspoel/node-with-docker
+        run: docker push danielvdspoel/node-with-docker:next
