@@ -17,7 +17,7 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t danielvdspoel/node-with-docker .
+        run: docker build -t danielvdspoel/node-with-docker:next .
 
       - name: Publish Docker image
         run: docker push danielvdspoel/node-with-docker
