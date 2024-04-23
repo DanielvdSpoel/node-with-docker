@@ -16,8 +16,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
+      - name: Get short commit SHA
+        run: echo "::set-env name=COMMIT_SHA::$(git rev-parse --short HEAD)"
+
       - name: Build Docker image
-        run: docker build -t danielvdspoel/node-with-docker:next .
+        run: docker build -t danielvdspoel/node-with-docker:${{ env.COMMIT_SHA }} .
 
       - name: Publish Docker image
-        run: docker push danielvdspoel/node-with-docker:next
+        run: docker push danielvdspoel/node-with-docker:${{ env.COMMIT_SHA }}
