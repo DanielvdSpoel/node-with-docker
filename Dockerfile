@@ -10,7 +10,7 @@ RUN curl -fsSL https://github.com/docker/compose/releases/download/1.29.2/docker
     && chmod +x /usr/local/bin/docker-compose
 
 RUN apk update && \
-    apk add --no-cache git bash curl
+    apk add --no-cache git bash curl skopeo
 
 RUN echo 'updated'
 
