@@ -12,6 +12,8 @@ RUN curl -fsSL https://github.com/docker/compose/releases/download/1.29.2/docker
 RUN apk update && \
     apk add --no-cache git bash curl skopeo
 
+RUN skopeo
+
 RUN echo 'updated'
 
 # Cleanup
